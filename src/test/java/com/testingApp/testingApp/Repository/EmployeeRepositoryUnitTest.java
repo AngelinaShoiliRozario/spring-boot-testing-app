@@ -6,11 +6,13 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+@ActiveProfiles("test") //will use the application-test.properties
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EmployeeRepositoryUnitTest {
 
@@ -25,8 +27,8 @@ public class EmployeeRepositoryUnitTest {
         Employee employee = new Employee("John", "Doe", "john.doe@example.com");
 
         employeeRepository.save(employee);
-
         Assertions.assertThat(employee.getId()).isGreaterThan(0);
+        System.out.println("Employee saved with ID: " + employee.getId());
     }
 
     @Test
